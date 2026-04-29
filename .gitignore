@@ -1,0 +1,13 @@
+# Workspace data downloaded from Drive — not part of repo source
+maths/
+eng/
+downloads/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
