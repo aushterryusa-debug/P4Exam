@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>香港經濟大發現 Hong Kong Economy Adventure | Abby 的學習網頁</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --pink: #ff6fa3;
+    --yellow: #ffd84d;
+    --blue: #4dc3ff;
+    --green: #6ee7a7;
+    --purple: #b39bff;
+    --orange: #ff9a4d;
+    --dark: #2b2d42;
+    --bg: #fff8f0;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Comic Sans MS", "Trebuchet MS", "PingFang HK", "Microsoft JhengHei", sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.7;
+  }
+  header {
+    background: linear-gradient(135deg, var(--pink), var(--orange), var(--yellow));
+    padding: 30px 20px;
+    text-align: center;
+    color: white;
+    border-bottom: 6px dashed white;
+  }
+  header h1 {
+    font-size: 2.4em;
+    margin: 0 0 8px 0;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+  }
+  header p { font-size: 1.1em; margin: 4px 0; }
+  .ambassador-badge {
+    display: inline-block;
+    background: white;
+    color: var(--pink);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+  }
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--dark);
+    padding: 10px;
+    text-align: center;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 12px;
+    display: inline-block;
+    font-size: 0.95em;
+    transition: background 0.2s;
+  }
+  nav a:hover { background: var(--pink); }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  section {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.06);
+    border: 3px solid var(--yellow);
+  }
+  section h2 {
+    color: var(--pink);
+    font-size: 1.8em;
+    margin-top: 0;
+    border-bottom: 3px dashed var(--yellow);
+    padding-bottom: 10px;
+  }
+  section h3 {
+    color: var(--blue);
+    font-size: 1.3em;
+    margin-top: 20px;
+  }
+  .section-icon { font-size: 1.5em; margin-right: 8px; }
+  .kid-note {
+    background: #fff3cd;
+    border-left: 6px solid var(--yellow);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-size: 0.95em;
+  }
+  .kid-note strong { color: var(--orange); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  th {
+    background: var(--blue);
+    color: white;
+    padding: 12px;
+    text-align: left;
+  }
+  td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+  }
+  tr:nth-child(even) td { background: #f7fbff; }
+  tr:hover td { background: #fff3cd; }
+  .chart-box {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 16px;
+    margin: 15px 0;
+    border: 2px dashed var(--purple);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+  }
+  .card {
+    background: linear-gradient(135deg, #fff, #fafaff);
+    padding: 18px;
+    border-radius: 14px;
+    border: 2px solid var(--green);
+    text-align: center;
+  }
+  .card .big {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--pink);
+    display: block;
+  }
+  .card .label { color: var(--dark); font-size: 0.95em; }
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    border-left: 4px solid var(--purple);
+    margin: 20px 0;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    background: #faf6ff;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border-left: 5px solid var(--pink);
+  }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -38px;
+    top: 18px;
+    width: 16px;
+    height: 16px;
+    background: var(--pink);
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 0 0 2px var(--purple);
+  }
+  .timeline-item .year {
+    font-weight: bold;
+    color: var(--purple);
+    font-size: 1.1em;
+  }
+  .industry {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 16px;
+    margin: 4px;
+    font-weight: bold;
+  }
+  .advantage-box {
+    background: linear-gradient(135deg, #fff5f8, #fff);
+    border: 3px solid var(--pink);
+    border-radius: 16px;
+    padding: 18px;
+    margin: 15px 0;
+  }
+  .advantage-box h4 {
+    color: var(--pink);
+    margin: 0 0 8px 0;
+    font-size: 1.2em;
+  }
+  .emoji-large { font-size: 1.4em; }
+  footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+  }
+  footer .sources {
+    font-size: 0.85em;
+    color: #ccc;
+    margin-top: 10px;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  footer .sources li { margin: 4px 0; }
+  .compare-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin: 12px 0;
+  }
+  .compare-flag {
+    font-size: 2em;
+    width: 50px;
+    text-align: center;
+  }
+  .compare-bar-bg {
+    flex: 1;
+    background: #eee;
+    border-radius: 20px;
+    height: 30px;
+    overflow: hidden;
+    position: relative;
+  }
+  .compare-bar {
+    height: 100%;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: right;
+    padding: 4px 12px;
+    line-height: 22px;
+  }
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.6em; }
+    section h2 { font-size: 1.4em; }
+    nav a { font-size: 0.8em; padding: 4px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>香港經濟大發現</h1>
+  <p>Hong Kong Economy Adventure</p>
+  <p>P4 人文 單元二 | 救恩學校</p>
+  <span class="ambassador-badge">大使 Ambassador: Abby 謝晉昇 (4信)</span>
+</header>
+
+<nav>
+  <a href="#summary">總結 Summary</a>
+  <a href="#location">地理 Location</a>
+  <a href="#harbour">港口 Harbour</a>
+  <a href="#law">法律 Law</a>
+  <a href="#tax">稅制 Tax</a>
+  <a href="#industry">產業 Industry</a>
+  <a href="#evolve">演變 Evolution</a>
+  <a href="#data">數據 Data</a>
+</nav>
+
+<main>
+
+<!-- ========= SUMMARY ========= -->
+<section id="summary">
+  <h2><span class="section-icon">🌟</span>研習總結 Summary</h2>
+  <p><strong>研習主題：</strong>香港經濟的優勢與推廣</p>
+  <p>大家好！我是「香港經濟推廣大使」Abby。今天我會帶你發現香港經濟的<strong>4 個超級優勢</strong>，告訴外國叔叔阿姨：「快來香港做生意吧！」</p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="big">📍</span>
+      <span class="label"><strong>地理位置</strong><br/>5 小時飛遍亞洲！</span>
+    </div>
+    <div class="card">
+      <span class="big">⚖️</span>
+      <span class="label"><strong>法律制度</strong><br/>《基本法》保護財產</span>
+    </div>
+    <div class="card">
+      <span class="big">💰</span>
+      <span class="label"><strong>低稅率</strong><br/>只需交 16.5%</span>
+    </div>
+    <div class="card">
+      <span class="big">🏦</span>
+      <span class="label"><strong>主要產業</strong><br/>金融服務最強！</span>
+    </div>
+  </div>
+
+  <div class="kid-note">
+    <strong>🎯 一句話總結：</strong>香港位置好、法律好、稅又少、產業強，所以能成為國際大都市！
+  </div>
+</section>
+
+<!-- ========= 1. LOCATION ========= -->
+<section id="location">
+  <h2><span class="section-icon">📍</span>優勢一：得天獨厚的地理位置</h2>
+  <p>香港位於<strong>亞洲東南</strong>位置，與中國內地、日本、新加坡、東南亞國家都很近。坐飛機很快就到，很方便和各地做生意！</p>
+
+  <h3>🛫 從香港飛到各地有多遠？</h3>
+  <table>
+    <thead>
+      <tr><th>地方 Place</th><th>距離 Distance</th><th>飛行時間 Flight Time</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🇵🇭 菲律賓 Philippines</td><td>約 1,100 km</td><td>2 – 2.5 小時</td></tr>
+      <tr><td>🇹🇭 泰國 Thailand</td><td>約 1,700 km</td><td>2.5 – 3 小時</td></tr>
+      <tr><td>🇨🇳 北京 Beijing</td><td>約 2,000 km</td><td>3 – 3.5 小時</td></tr>
+      <tr><td>🇰🇷 韓國 Korea</td><td>約 2,100 km</td><td>3 – 3.5 小時</td></tr>
+      <tr><td>🇸🇬 新加坡 Singapore</td><td>約 2,600 km</td><td>3.5 – 4 小時</td></tr>
+      <tr><td>🇯🇵 日本 Japan</td><td>約 2,900 km</td><td>4 – 4.5 小時</td></tr>
+    </tbody>
+  </table>
+
+  <div class="chart-box">
+    <h3>📊 圖表 1：飛行距離比較</h3>
+    <canvas id="distanceChart" height="200"></canvas>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="big">120+</span>
+      <span class="label">航空公司每日服務</span>
+    </div>
+    <div class="card">
+      <span class="big">1,100+</span>
+      <span class="label">每日航班架次</span>
+    </div>
+    <div class="card">
+      <span class="big">220+</span>
+      <span class="label">全球航點</span>
+    </div>
+    <div class="card">
+      <span class="big">50%</span>
+      <span class="label">5 小時內可到一半世界人口</span>
+    </div>
+  </div>
+
+  <div class="kid-note">
+    <strong>💡 為什麼這很棒？</strong>因為位置好，香港可以方便地把<strong>貨物</strong>和<strong>人才</strong>送到世界各地，做生意又快又方便！
+  </div>
+</section>
+
+<!-- ========= HARBOUR ========= -->
+<section id="harbour">
+  <h2><span class="section-icon">⚓</span>維多利亞港 — 天然好港口</h2>
+  <p>香港有一個天然的好港口叫<strong>維多利亞港</strong>，它有 3 大天然優勢，再加上一年四季都不結冰！</p>
+
+  <div class="grid">
+    <div class="advantage-box">
+      <h4>🌊 1. 水深</h4>
+      <p>平均水深 <strong>12 公尺</strong>！海底是堅硬岩石，不容易被淤泥堵塞。<br/>👉 全世界最大的貨櫃船都能直接駛入！</p>
+    </div>
+    <div class="advantage-box">
+      <h4>🏔️ 2. 避風</h4>
+      <p>四面被九龍半島和香港島的群山包圍。<br/>👉 強風被山擋住，船隻不怕風浪！</p>
+    </div>
+    <div class="advantage-box">
+      <h4>🚢 3. 航道寬闊</h4>
+      <p>港口入口處寬闊暢通，沒有太多島嶼或暗礁。<br/>👉 不同船隻可以同時出入，不會撞到！</p>
+    </div>
+  </div>
+
+  <div class="kid-note">
+    <strong>❄️ 你知道嗎？</strong>香港氣候暖和，港口<strong>終年不結冰</strong>！這也是天然優勢，讓船隻全年都能進出。
+  </div>
+</section>
+
+<!-- ========= 2. LAW ========= -->
+<section id="law">
+  <h2><span class="section-icon">⚖️</span>優勢二：健全的法律制度</h2>
+  <p><strong>《基本法》</strong>是香港特別行政區的憲制性文件，是香港繁榮穩定的<strong>基石</strong>（最重要的基礎）。</p>
+
+  <div class="advantage-box">
+    <h4>📜 《基本法》第 6 條</h4>
+    <p>「香港特別行政區依法保護<strong>私有財產權</strong>。」</p>
+    <p style="font-size:0.9em;color:#666">意思：你的東西、你的錢、你的店舖，法律會保護你！</p>
+  </div>
+
+  <h3>📰 真實新聞例子</h3>
+  <div class="grid">
+    <div class="advantage-box" style="border-color: var(--blue);">
+      <h4 style="color: var(--blue);">🏗️ 例子一：土瓜灣重建</h4>
+      <p>香港市區重建局在土瓜灣做重建工程，要收購數百個私人單位。市建局嚴格依照政策，向業主提供<strong>「市價收購」</strong>或<strong>「樓換樓」</strong>方案。</p>
+      <p style="font-size:0.85em;color:#666">📌 來源：市建局新聞發布，2025-9-26</p>
+    </div>
+    <div class="advantage-box" style="border-color: var(--green);">
+      <h4 style="color: var(--green);">🌐 例子二：國際調解院</h4>
+      <p>國際調解院將總部設在香港，向跨國企業和投資者證明：香港可以為國際商業糾紛提供<strong>中立、專業</strong>的解決平台！</p>
+      <p style="font-size:0.85em;color:#666">📌 來源：文匯報，2025-10-20</p>
+    </div>
+  </div>
+
+  <div class="kid-note">
+    <strong>💡 大使重點：</strong>健全的法律制度，讓本地和國際投資者都<strong>有信心</strong>。即使有問題也可以依法解決，所以大家放心把錢、技術投入香港！
+  </div>
+</section>
+
+<!-- ========= 3. TAX ========= -->
+<section id="tax">
+  <h2><span class="section-icon">💰</span>優勢三：簡單低稅率</h2>
+  <p>香港的稅率非常低！這就像買東西打折一樣，大家都喜歡來開公司！</p>
+
+  <h3>🏪 開蛋糕店要交多少稅？</h3>
+  <p>每賺 100 元，要交給政府多少？</p>
+
+  <div class="compare-row">
+    <div class="compare-flag">🇺🇸</div>
+    <div class="compare-bar-bg">
+      <div class="compare-bar" style="width: 100%; background: var(--pink);">美國 USA：$25</div>
+    </div>
+  </div>
+  <div class="compare-row">
+    <div class="compare-flag">🇭🇰</div>
+    <div class="compare-bar-bg">
+      <div class="compare-bar" style="width: 66%; background: var(--green);">香港 HK：$16.5</div>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <h3>📊 圖表 2：香港 vs 美國 利得稅比較</h3>
+    <canvas id="taxChart" height="200"></canvas>
+  </div>
+
+  <div class="kid-note">
+    <strong>🎉 為什麼這很棒？</strong>低稅率<strong>吸引</strong>全球的資金、企業和人才來香港！大家來開公司 → 創造工作機會 → 經濟活躍 → <strong>良性循環</strong>！
+  </div>
+</section>
+
+<!-- ========= 4. INDUSTRY ========= -->
+<section id="industry">
+  <h2><span class="section-icon">🏦</span>優勢四：香港的主要產業</h2>
+  <p>香港有 <strong>4 大主要產業</strong>，最強的是<strong>金融服務</strong>！</p>
+
+  <div class="grid">
+    <div class="card" style="border-color: var(--pink);">
+      <span class="big">🏦</span>
+      <span class="label"><strong>金融服務</strong><br/>銀行、股票、保險<br/><em>最大產業！</em></span>
+    </div>
+    <div class="card" style="border-color: var(--blue);">
+      <span class="big">🚢</span>
+      <span class="label"><strong>貿易及物流</strong><br/>進出口、運送貨物</span>
+    </div>
+    <div class="card" style="border-color: var(--orange);">
+      <span class="big">💼</span>
+      <span class="label"><strong>專業服務</strong><br/>律師、會計、廣告</span>
+    </div>
+    <div class="card" style="border-color: var(--purple);">
+      <span class="big">✈️</span>
+      <span class="label"><strong>旅遊業</strong><br/>觀光、酒店、購物</span>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <h3>📊 圖表 3：香港四大主要產業佔 GDP 比例（約數）</h3>
+    <canvas id="industryChart" height="220"></canvas>
+    <p style="font-size:0.85em;color:#666;text-align:center;">📌 數據參考：香港政府統計處</p>
+  </div>
+
+  <h3>🏦 重點介紹：金融服務</h3>
+  <div class="advantage-box">
+    <p>香港是<strong>國際金融中心</strong>！全球大銀行（如滙豐、渣打、中銀）都在香港設總部。香港交易所（HKEX）是世界最大的股票市場之一。</p>
+    <p>👉 因為法律好 + 稅率低 + 位置好，全世界的錢都流到香港！</p>
+  </div>
+</section>
+
+<!-- ========= EVOLVE ========= -->
+<section id="evolve">
+  <h2><span class="section-icon">🕰️</span>香港經濟的演變 Evolution</h2>
+  <p>香港從一個小漁村，變成了國際大都市！讓我們一起看歷史故事👇</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="year">🐟 1841 年以前</span>
+      <p><strong>小漁村時代</strong><br/>香港只是一個小小的漁村，村民主要靠捕魚、種田生活。</p>
+    </div>
+    <div class="timeline-item">
+      <span class="year">⛵ 1841 – 1900 年</span>
+      <p><strong>開埠成為貿易港</strong><br/>香港成為英國殖民地，開始作為轉口貿易港，連接中國與世界。</p>
+    </div>
+    <div class="timeline-item">
+      <span class="year">🏭 1950 – 1970 年代</span>
+      <p><strong>工業起飛</strong><br/>香港大量生產紡織品、玩具、電子產品，是「亞洲四小龍」之一！</p>
+    </div>
+    <div class="timeline-item">
+      <span class="year">💼 1980 – 1990 年代</span>
+      <p><strong>轉型服務業</strong><br/>工廠搬到中國內地，香港轉型發展<strong>金融、貿易、地產</strong>。維多利亞港兩岸高樓大廈林立！</p>
+    </div>
+    <div class="timeline-item">
+      <span class="year">🇭🇰 1997 年 7 月 1 日</span>
+      <p><strong>回歸祖國</strong><br/>香港成為中華人民共和國香港特別行政區，實行「<strong>一國兩制</strong>」。《基本法》正式生效！</p>
+    </div>
+    <div class="timeline-item">
+      <span class="year">🏦 2000 – 2010 年代</span>
+      <p><strong>國際金融中心</strong><br/>香港股票市場（HKEX）成為亞洲最大之一。中國公司來香港上市！</p>
+    </div>
+    <div class="timeline-item">
+      <span class="year">🌐 2020 年代至今</span>
+      <p><strong>大灣區 + 新機遇</strong><br/>香港加入「粵港澳大灣區」發展計劃。國際調解院總部設於香港，繼續做<strong>連接中國與世界的超級聯繫人</strong>！</p>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <h3>📈 圖表 4：香港 GDP 增長（1980 – 2024）</h3>
+    <canvas id="gdpChart" height="220"></canvas>
+    <p style="font-size:0.85em;color:#666;text-align:center;">📌 數據參考：世界銀行 (World Bank) 香港 GDP 數據（單位：千億美元）</p>
+  </div>
+</section>
+
+<!-- ========= RAW DATA ========= -->
+<section id="data">
+  <h2><span class="section-icon">📊</span>原始數據總表 Raw Data</h2>
+
+  <h3>表 1：香港到亞洲城市距離與飛行時間</h3>
+  <table>
+    <thead>
+      <tr><th>地方</th><th>距離 (km)</th><th>飛行時間 (小時)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>菲律賓</td><td>約 1,100</td><td>2 – 2.5</td></tr>
+      <tr><td>泰國</td><td>約 1,700</td><td>2.5 – 3</td></tr>
+      <tr><td>北京</td><td>約 2,000</td><td>3 – 3.5</td></tr>
+      <tr><td>韓國</td><td>約 2,100</td><td>3 – 3.5</td></tr>
+      <tr><td>新加坡</td><td>約 2,600</td><td>3.5 – 4</td></tr>
+      <tr><td>日本</td><td>約 2,900</td><td>4 – 4.5</td></tr>
+    </tbody>
+  </table>
+
+  <h3>表 2：香港 vs 美國 利得稅比較</h3>
+  <table>
+    <thead>
+      <tr><th>地方</th><th>每 $100 收入要交稅</th><th>稅率</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>🇭🇰 香港</td><td>$16.5</td><td>16.5%</td></tr>
+      <tr><td>🇺🇸 美國</td><td>$25</td><td>25%</td></tr>
+    </tbody>
+  </table>
+
+  <h3>表 3：香港四大主要產業（佔 GDP 約數）</h3>
+  <table>
+    <thead>
+      <tr><th>產業</th><th>佔 GDP 比例（約）</th><th>例子</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>金融服務</td><td>約 23%</td><td>銀行、股市、保險</td></tr>
+      <tr><td>貿易及物流</td><td>約 19%</td><td>進出口、貨運</td></tr>
+      <tr><td>專業服務</td><td>約 12%</td><td>律師、會計、廣告</td></tr>
+      <tr><td>旅遊業</td><td>約 5%</td><td>酒店、購物、觀光</td></tr>
+    </tbody>
+  </table>
+
+  <h3>表 4：香港 GDP 演變（1980 – 2024，單位：億美元）</h3>
+  <table>
+    <thead>
+      <tr><th>年份</th><th>GDP（約）</th><th>備註</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1980</td><td>~290</td><td>工業時代</td></tr>
+      <tr><td>1990</td><td>~770</td><td>轉型服務業</td></tr>
+      <tr><td>2000</td><td>~1,720</td><td>金融中心成型</td></tr>
+      <tr><td>2010</td><td>~2,290</td><td>後金融海嘯復甦</td></tr>
+      <tr><td>2020</td><td>~3,450</td><td>疫情期間</td></tr>
+      <tr><td>2024</td><td>~4,000</td><td>近年數字</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</main>
+
+<footer>
+  <p>🎓 救恩學校 P4 人文 單元二 | 香港經濟推廣大使</p>
+  <p>製作人 Made by: Abby 謝晉昇 (4信)</p>
+  <div class="sources">
+    <strong>📚 資料來源 Sources:</strong>
+    <ul>
+      <li>救恩學校 (2026)。《P4 人文 單元二 香港的經濟》課本。香港：救恩學校。</li>
+      <li>香港文匯報 (2021-06-07)。〈香港稅制比較〉。《文匯報》。</li>
+      <li>市區重建局 (2025-09-26)。〈土瓜灣重建項目新聞發布〉。香港市區重建局。</li>
+      <li>文匯報 (2025-10-20)。〈國際調解院總部設於香港〉。《文匯報》。</li>
+      <li>香港政府統計處 (網上資料)。取自 https://www.censtatd.gov.hk</li>
+      <li>世界銀行 World Bank (網上資料)。Hong Kong SAR GDP Data。取自 https://data.worldbank.org</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// Chart 1: Distance comparison
+new Chart(document.getElementById('distanceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['菲律賓', '泰國', '北京', '韓國', '新加坡', '日本'],
+    datasets: [{
+      label: '距離 (km)',
+      data: [1100, 1700, 2000, 2100, 2600, 2900],
+      backgroundColor: ['#ff6fa3','#ffd84d','#4dc3ff','#6ee7a7','#b39bff','#ff9a4d'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: '從香港出發的飛行距離 (km)', font: { size: 14 } }
+    },
+    scales: { y: { beginAtZero: true, title: { display: true, text: '距離 km' } } }
+  }
+});
+
+// Chart 2: Tax comparison
+new Chart(document.getElementById('taxChart'), {
+  type: 'bar',
+  data: {
+    labels: ['🇭🇰 香港', '🇺🇸 美國'],
+    datasets: [{
+      label: '利得稅率 (%)',
+      data: [16.5, 25],
+      backgroundColor: ['#6ee7a7', '#ff6fa3'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: '每 $100 收入要交多少稅', font: { size: 14 } }
+    },
+    scales: { x: { beginAtZero: true, max: 30, title: { display: true, text: '稅率 %' } } }
+  }
+});
+
+// Chart 3: Industry pie
+new Chart(document.getElementById('industryChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['金融服務 23%', '貿易及物流 19%', '專業服務 12%', '旅遊業 5%', '其他 41%'],
+    datasets: [{
+      data: [23, 19, 12, 5, 41],
+      backgroundColor: ['#ff6fa3', '#4dc3ff', '#ff9a4d', '#b39bff', '#dddddd'],
+      borderWidth: 3,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom' },
+      title: { display: true, text: '主要產業佔 GDP 比例', font: { size: 14 } }
+    }
+  }
+});
+
+// Chart 4: GDP evolution
+new Chart(document.getElementById('gdpChart'), {
+  type: 'line',
+  data: {
+    labels: ['1980', '1990', '2000', '2010', '2020', '2024'],
+    datasets: [{
+      label: '香港 GDP（億美元）',
+      data: [290, 770, 1720, 2290, 3450, 4000],
+      borderColor: '#ff6fa3',
+      backgroundColor: 'rgba(255, 111, 163, 0.2)',
+      fill: true,
+      tension: 0.3,
+      pointBackgroundColor: '#ffd84d',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointRadius: 7
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: '香港 GDP 從 1980 到 2024 的成長', font: { size: 14 } }
+    },
+    scales: { y: { beginAtZero: true, title: { display: true, text: '億美元 USD' } } }
+  }
+});
+</script>
+
+</body>
+</html>
