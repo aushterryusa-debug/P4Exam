@@ -52,11 +52,21 @@
   }
   .page:last-child { page-break-after: auto; }
 
-  /* Cuttable elements - dashed border indicates cut line */
+  /* Color theme: Sky Blue + Gold */
+  :root {
+    --sky: #4fc3f7;       /* sky blue */
+    --sky-deep: #0288d1;  /* deeper sky blue for text/accents */
+    --gold: #ffc107;      /* gold */
+    --gold-deep: #f57c00; /* deeper gold */
+  }
+
+  /* Cuttable elements - decorative double border (sky blue outer + gold inner) */
   .cut {
-    border: 2px dashed #888;
+    border: 3px solid var(--sky);
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
     padding: 8mm;
-    margin-bottom: 6mm;
+    margin: 6mm 4px;
     background: white;
     border-radius: 4mm;
     position: relative;
@@ -69,18 +79,22 @@
     background: white;
     padding: 0 6px;
     font-size: 9pt;
-    color: #888;
+    color: var(--sky-deep);
+    font-weight: bold;
   }
 
-  /* Title zone */
+  /* Title zone - extra fancy */
   .title-zone {
     text-align: center;
     border-width: 4px;
+    border-color: var(--gold);
+    outline-color: var(--sky);
+    background: linear-gradient(135deg, #fffbe6 0%, #ffffff 50%, #e1f5fe 100%);
   }
   .title-num {
     font-size: 28pt;
     font-weight: bold;
-    color: #1565c0;
+    color: var(--gold-deep);
     line-height: 1;
   }
   .title-main {
@@ -89,10 +103,11 @@
     color: #000;
     margin: 4mm 0 2mm 0;
     line-height: 1.1;
+    text-shadow: 2px 2px 0 var(--gold);
   }
   .title-en {
     font-size: 16pt;
-    color: #1565c0;
+    color: var(--sky-deep);
     font-weight: 600;
     letter-spacing: 1px;
   }
@@ -111,11 +126,16 @@
     max-height: 85mm !important;
   }
   .chart-caption {
-    font-size: 12pt;
-    color: #1565c0;
+    font-size: 13pt;
+    color: var(--sky-deep);
     font-weight: bold;
     margin-top: 4mm;
     text-align: center;
+    padding: 4px 12px;
+    background: #fffbe6;
+    border-radius: 6px;
+    border: 1.5px solid var(--gold);
+    display: inline-block;
   }
 
   /* Data zone */
@@ -123,40 +143,49 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 13pt;
+    border: 2px solid var(--sky-deep);
   }
   .data-zone th {
-    background: #000;
+    background: var(--sky-deep);
     color: white;
     padding: 6px 8px;
     text-align: left;
     font-size: 13pt;
+    border-bottom: 2px solid var(--gold);
   }
   .data-zone td {
     padding: 6px 8px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #e1f5fe;
   }
-  .data-zone tr:nth-child(even) td { background: #f5f5f5; }
+  .data-zone tr:nth-child(even) td { background: #f5fbff; }
   .data-zone .label {
     font-size: 11pt;
-    color: #1565c0;
+    color: var(--gold-deep);
     font-weight: bold;
     margin-bottom: 3mm;
     text-transform: uppercase;
     letter-spacing: 1px;
+    background: #fffbe6;
+    padding: 2px 8px;
+    border-left: 4px solid var(--gold);
+    display: inline-block;
   }
 
   /* Source zone */
   .source-zone {
-    border-style: dotted;
-    border-width: 1.5px;
+    border-style: dashed !important;
+    border-width: 2px !important;
+    border-color: var(--gold) !important;
+    outline-color: var(--sky) !important;
     padding: 6mm 8mm;
     font-size: 9pt;
     color: #333;
+    background: #fffef8;
   }
   .source-zone .label {
     font-size: 10pt;
     font-weight: bold;
-    color: #1565c0;
+    color: var(--gold-deep);
     margin-bottom: 2mm;
   }
   .source-zone ul { margin: 0; padding-left: 16px; }
@@ -185,7 +214,8 @@
   }
   .icon-item .icon-en {
     font-size: 10pt;
-    color: #1565c0;
+    color: var(--sky-deep);
+    font-weight: bold;
   }
 
   /* Big stat boxes */
@@ -198,25 +228,29 @@
   .stat-box {
     text-align: center;
     padding: 4mm 2mm;
-    border: 2px solid #000;
+    border: 3px solid var(--sky);
     border-radius: 3mm;
+    background: linear-gradient(135deg, #ffffff 0%, #fffbe6 100%);
+    box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px var(--gold);
   }
   .stat-num {
     font-size: 24pt;
     font-weight: bold;
-    color: #1565c0;
+    color: var(--sky-deep);
     line-height: 1;
   }
   .stat-label {
     font-size: 10pt;
     color: #000;
     margin-top: 2mm;
+    font-weight: bold;
   }
 
   /* Special: Article quote box */
   .quote-box {
     text-align: center;
     padding: 10mm;
+    background: linear-gradient(135deg, #fffbe6 0%, #ffffff 100%);
   }
   .quote-text {
     font-size: 22pt;
@@ -224,27 +258,34 @@
     color: #000;
     line-height: 1.4;
     margin-bottom: 4mm;
+    padding: 4mm;
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
   }
   .quote-cite {
     font-size: 14pt;
-    color: #1565c0;
+    color: var(--sky-deep);
     font-weight: bold;
   }
 
   /* News case */
   .news-case {
-    border: 2px solid #000;
+    border: 2.5px solid var(--sky);
+    border-left: 6px solid var(--gold);
     padding: 5mm;
     margin: 3mm 0;
+    background: #fafdff;
+    border-radius: 3mm;
   }
   .news-case .news-title {
     font-size: 14pt;
     font-weight: bold;
     margin-bottom: 2mm;
+    color: var(--sky-deep);
   }
   .news-case .news-source {
     font-size: 10pt;
-    color: #1565c0;
+    color: var(--gold-deep);
     font-weight: bold;
   }
 
@@ -260,14 +301,16 @@
   .vs-side {
     text-align: center;
     padding: 6mm 4mm;
-    border: 3px solid #000;
+    border: 4px solid var(--sky);
     border-radius: 4mm;
+    background: linear-gradient(135deg, #ffffff 0%, #e1f5fe 100%);
+    box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px var(--gold);
   }
   .vs-flag { font-size: 36pt; }
   .vs-num {
     font-size: 48pt;
     font-weight: bold;
-    color: #1565c0;
+    color: var(--sky-deep);
     line-height: 1;
     margin: 2mm 0;
   }
@@ -275,7 +318,7 @@
   .vs-divider {
     font-size: 36pt;
     font-weight: bold;
-    color: #000;
+    color: var(--gold-deep);
   }
 
   @media print {
@@ -362,21 +405,23 @@
   <div class="cut chart-zone">
     <svg viewBox="0 0 400 200" style="width:100%; max-width:300px;">
       <!-- Scale of justice -->
-      <line x1="200" y1="20" x2="200" y2="160" stroke="black" stroke-width="6"/>
-      <line x1="80" y1="50" x2="320" y2="50" stroke="black" stroke-width="5"/>
-      <circle cx="80" cy="50" r="6" fill="black"/>
-      <circle cx="320" cy="50" r="6" fill="black"/>
+      <line x1="200" y1="20" x2="200" y2="160" stroke="#0288d1" stroke-width="6"/>
+      <line x1="80" y1="50" x2="320" y2="50" stroke="#ffc107" stroke-width="6"/>
+      <circle cx="80" cy="50" r="7" fill="#ffc107"/>
+      <circle cx="320" cy="50" r="7" fill="#ffc107"/>
       <!-- Left pan -->
-      <line x1="80" y1="50" x2="50" y2="90" stroke="black" stroke-width="2"/>
-      <line x1="80" y1="50" x2="110" y2="90" stroke="black" stroke-width="2"/>
-      <ellipse cx="80" cy="95" rx="35" ry="8" fill="none" stroke="black" stroke-width="3"/>
+      <line x1="80" y1="50" x2="50" y2="90" stroke="#0288d1" stroke-width="2"/>
+      <line x1="80" y1="50" x2="110" y2="90" stroke="#0288d1" stroke-width="2"/>
+      <ellipse cx="80" cy="95" rx="35" ry="8" fill="#e1f5fe" stroke="#0288d1" stroke-width="3"/>
       <!-- Right pan -->
-      <line x1="320" y1="50" x2="290" y2="90" stroke="black" stroke-width="2"/>
-      <line x1="320" y1="50" x2="350" y2="90" stroke="black" stroke-width="2"/>
-      <ellipse cx="320" cy="95" rx="35" ry="8" fill="none" stroke="black" stroke-width="3"/>
+      <line x1="320" y1="50" x2="290" y2="90" stroke="#0288d1" stroke-width="2"/>
+      <line x1="320" y1="50" x2="350" y2="90" stroke="#0288d1" stroke-width="2"/>
+      <ellipse cx="320" cy="95" rx="35" ry="8" fill="#e1f5fe" stroke="#0288d1" stroke-width="3"/>
       <!-- Base -->
-      <rect x="170" y="160" width="60" height="10" fill="black"/>
-      <rect x="150" y="170" width="100" height="15" fill="black"/>
+      <rect x="170" y="160" width="60" height="10" fill="#0288d1"/>
+      <rect x="150" y="170" width="100" height="15" fill="#0288d1"/>
+      <!-- Decorative star on top -->
+      <polygon points="200,8 203,16 211,16 205,21 207,29 200,24 193,29 195,21 189,16 197,16" fill="#ffc107"/>
     </svg>
     <div class="chart-caption">⚖️ 法律公平 ・ 廉潔高效</div>
   </div>
@@ -483,22 +528,22 @@
   <div class="cut">
     <div class="icon-grid">
       <div class="icon-item">
-        <svg viewBox="0 0 64 64"><rect x="8" y="20" width="48" height="36" fill="none" stroke="black" stroke-width="3"/><polygon points="32,8 56,22 8,22" fill="none" stroke="black" stroke-width="3"/><line x1="18" y1="28" x2="18" y2="52" stroke="black" stroke-width="3"/><line x1="32" y1="28" x2="32" y2="52" stroke="black" stroke-width="3"/><line x1="46" y1="28" x2="46" y2="52" stroke="black" stroke-width="3"/></svg>
+        <svg viewBox="0 0 64 64"><rect x="8" y="20" width="48" height="36" fill="#e1f5fe" stroke="#0288d1" stroke-width="3"/><polygon points="32,8 56,22 8,22" fill="#ffc107" stroke="#0288d1" stroke-width="3"/><line x1="18" y1="28" x2="18" y2="52" stroke="#0288d1" stroke-width="3"/><line x1="32" y1="28" x2="32" y2="52" stroke="#0288d1" stroke-width="3"/><line x1="46" y1="28" x2="46" y2="52" stroke="#0288d1" stroke-width="3"/></svg>
         <div class="icon-label">金融服務</div>
         <div class="icon-en">Finance 23%</div>
       </div>
       <div class="icon-item">
-        <svg viewBox="0 0 64 64"><rect x="6" y="30" width="52" height="22" fill="none" stroke="black" stroke-width="3"/><path d="M6 30 L18 18 L46 18 L58 30" fill="none" stroke="black" stroke-width="3"/><circle cx="18" cy="56" r="4" fill="none" stroke="black" stroke-width="2"/><circle cx="46" cy="56" r="4" fill="none" stroke="black" stroke-width="2"/></svg>
+        <svg viewBox="0 0 64 64"><rect x="6" y="30" width="52" height="22" fill="#fffbe6" stroke="#0288d1" stroke-width="3"/><path d="M6 30 L18 18 L46 18 L58 30" fill="#ffc107" stroke="#0288d1" stroke-width="3"/><circle cx="18" cy="56" r="4" fill="#0288d1"/><circle cx="46" cy="56" r="4" fill="#0288d1"/></svg>
         <div class="icon-label">貿易物流</div>
         <div class="icon-en">Trade 19%</div>
       </div>
       <div class="icon-item">
-        <svg viewBox="0 0 64 64"><rect x="14" y="20" width="36" height="36" fill="none" stroke="black" stroke-width="3"/><path d="M22 20 L22 12 L42 12 L42 20" fill="none" stroke="black" stroke-width="3"/><line x1="22" y1="32" x2="42" y2="32" stroke="black" stroke-width="2"/><line x1="22" y1="40" x2="42" y2="40" stroke="black" stroke-width="2"/></svg>
+        <svg viewBox="0 0 64 64"><rect x="14" y="20" width="36" height="36" fill="#e1f5fe" stroke="#0288d1" stroke-width="3"/><path d="M22 20 L22 12 L42 12 L42 20" fill="#ffc107" stroke="#0288d1" stroke-width="3"/><line x1="22" y1="32" x2="42" y2="32" stroke="#0288d1" stroke-width="2"/><line x1="22" y1="40" x2="42" y2="40" stroke="#0288d1" stroke-width="2"/></svg>
         <div class="icon-label">專業服務</div>
         <div class="icon-en">Pro Svc 12%</div>
       </div>
       <div class="icon-item">
-        <svg viewBox="0 0 64 64"><path d="M32 8 L32 56" stroke="black" stroke-width="3"/><path d="M8 28 L56 28 L48 36 L16 36 Z" fill="none" stroke="black" stroke-width="3"/><circle cx="32" cy="14" r="4" fill="none" stroke="black" stroke-width="2"/></svg>
+        <svg viewBox="0 0 64 64"><path d="M32 8 L32 56" stroke="#0288d1" stroke-width="3"/><path d="M8 28 L56 28 L48 36 L16 36 Z" fill="#ffc107" stroke="#0288d1" stroke-width="3"/><circle cx="32" cy="14" r="5" fill="#ffc107" stroke="#0288d1" stroke-width="2"/></svg>
         <div class="icon-label">旅遊業</div>
         <div class="icon-en">Tourism 5%</div>
       </div>
@@ -538,8 +583,8 @@ new Chart(document.getElementById('chart1'), {
     datasets: [{
       label: '距離 (km)',
       data: [1100, 1700, 2000, 2100, 2600, 2900],
-      backgroundColor: '#1565c0',
-      borderColor: '#000',
+      backgroundColor: ['#4fc3f7', '#ffc107', '#4fc3f7', '#ffc107', '#4fc3f7', '#ffc107'],
+      borderColor: '#0288d1',
       borderWidth: 2
     }]
   },
@@ -571,9 +616,9 @@ new Chart(document.getElementById('chart3'), {
     datasets: [{
       label: '稅率 %',
       data: [16.5, 25],
-      backgroundColor: ['#1565c0', '#000'],
-      borderColor: '#000',
-      borderWidth: 2
+      backgroundColor: ['#4fc3f7', '#ffc107'],
+      borderColor: '#0288d1',
+      borderWidth: 3
     }]
   },
   options: {
@@ -605,9 +650,9 @@ new Chart(document.getElementById('chart4'), {
     labels: ['金融 23%', '貿易物流 19%', '專業服務 12%', '旅遊 5%', '其他 41%'],
     datasets: [{
       data: [23, 19, 12, 5, 41],
-      backgroundColor: ['#1565c0', '#1976d2', '#42a5f5', '#90caf9', '#e0e0e0'],
-      borderColor: '#000',
-      borderWidth: 2
+      backgroundColor: ['#0288d1', '#4fc3f7', '#ffc107', '#ffe082', '#e0e0e0'],
+      borderColor: '#fff',
+      borderWidth: 3
     }]
   },
   options: {
