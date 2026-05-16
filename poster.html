@@ -218,11 +218,48 @@
   /* Map zone for page 1 */
   .map-zone {
     text-align: center;
-    padding: 6mm;
+    padding: 4mm 6mm;
+  }
+  .map-zone .map-container {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+  }
+  .map-zone img {
+    max-width: 100%;
+    max-height: 115mm;
+    border: 2px solid var(--sky-deep);
+    border-radius: 3mm;
+    display: block;
   }
   .map-zone svg {
     max-width: 100%;
-    max-height: 110mm;
+    max-height: 115mm;
+  }
+  /* HK marker overlay on map */
+  .hk-marker {
+    position: absolute;
+    top: 56%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    pointer-events: none;
+    font-size: 22pt;
+    color: #ffc107;
+    text-shadow: 0 0 4px #fff, 0 0 8px #fff, 1px 1px 2px rgba(0,0,0,0.4);
+    animation: none;
+  }
+  .map-caption {
+    font-size: 10pt;
+    color: var(--sky-deep);
+    margin-top: 3mm;
+    font-weight: bold;
+  }
+  .map-source {
+    font-size: 8pt;
+    color: #666;
+    margin-top: 1mm;
+    font-style: italic;
   }
 
   /* Highlight tagline - short key message per page */
@@ -481,59 +518,14 @@
   <div class="cut map-zone">
     <span class="tape tape-gold tape-tl"></span>
     <span class="tape tape-sky tape-tr"></span>
-    <span class="sticker star-gold" style="top:6mm; left:50%; transform:translateX(-50%) rotate(0deg); font-size:16pt;">📍</span>
-    <svg viewBox="0 0 500 360" xmlns="http://www.w3.org/2000/svg">
-      <!-- Background ocean -->
-      <rect width="500" height="360" fill="#e1f5fe" stroke="#0288d1" stroke-width="3" rx="10"/>
-      <text x="250" y="22" font-size="13" fill="#0288d1" font-weight="bold" text-anchor="middle">🌏 香港 — 亞洲嘅中心 ASIA HUB</text>
-
-      <!-- China (large) -->
-      <path d="M 90 70 Q 130 50, 230 60 L 310 75 Q 330 100, 320 145 L 290 155 L 240 150 L 200 165 L 150 155 Q 110 130, 90 70 Z"
-            fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <text x="200" y="115" font-size="14" fill="#000" font-weight="bold" text-anchor="middle">中國 China</text>
-
-      <!-- Beijing dot -->
-      <circle cx="225" cy="90" r="4" fill="#0288d1"/>
-      <text x="230" y="88" font-size="10" fill="#0288d1" font-weight="bold">★北京</text>
-
-      <!-- Korea -->
-      <ellipse cx="335" cy="100" rx="12" ry="22" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <text x="335" y="80" font-size="11" fill="#000" font-weight="bold" text-anchor="middle">韓國</text>
-
-      <!-- Japan -->
-      <ellipse cx="405" cy="125" rx="14" ry="42" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5" transform="rotate(-25 405 125)"/>
-      <text x="420" y="100" font-size="11" fill="#000" font-weight="bold">日本</text>
-
-      <!-- Thailand -->
-      <path d="M 155 210 L 180 200 L 195 245 L 175 275 L 150 255 Z" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <text x="170" y="235" font-size="11" fill="#000" font-weight="bold" text-anchor="middle">泰國</text>
-
-      <!-- Philippines (multiple islands) -->
-      <circle cx="305" cy="225" r="8" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <circle cx="315" cy="245" r="6" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <circle cx="295" cy="255" r="5" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <text x="330" y="240" font-size="11" fill="#000" font-weight="bold">菲律賓</text>
-
-      <!-- Singapore -->
-      <circle cx="215" cy="320" r="7" fill="#fffbe6" stroke="#0288d1" stroke-width="2.5"/>
-      <text x="215" y="343" font-size="11" fill="#000" font-weight="bold" text-anchor="middle">新加坡</text>
-
-      <!-- Dotted flight paths from HK -->
-      <g stroke="#ffc107" stroke-width="1.8" stroke-dasharray="5,3" fill="none">
-        <line x1="260" y1="195" x2="225" y2="90"/>
-        <line x1="260" y1="195" x2="335" y2="100"/>
-        <line x1="260" y1="195" x2="405" y2="125"/>
-        <line x1="260" y1="195" x2="175" y2="235"/>
-        <line x1="260" y1="195" x2="305" y2="225"/>
-        <line x1="260" y1="195" x2="215" y2="320"/>
-      </g>
-
-      <!-- Hong Kong - big yellow star -->
-      <polygon points="260,170 268,188 287,188 272,200 278,218 260,207 242,218 248,200 233,188 252,188"
-               fill="#ffc107" stroke="#0288d1" stroke-width="2.5"/>
-      <rect x="232" y="218" width="56" height="20" rx="4" fill="#ffc107" stroke="#0288d1" stroke-width="2"/>
-      <text x="260" y="232" font-size="12" fill="#000" font-weight="bold" text-anchor="middle">★ 香港 HK</text>
-    </svg>
+    <div class="map-container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Map_of_East_Asia.png"
+           alt="East Asia Political Map showing China, Japan, Korea, Hong Kong"
+           crossorigin="anonymous" />
+      <span class="hk-marker">★</span>
+    </div>
+    <div class="map-caption">🌏 香港位於亞洲中心 ・ 連接世界嘅國際樞紐</div>
+    <div class="map-source">Map: Wikimedia Commons (CC-BY-SA 4.0)</div>
   </div>
 
   <div class="cut chart-zone">
