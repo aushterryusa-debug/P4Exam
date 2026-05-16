@@ -40,15 +40,17 @@
 
   .page {
     width: 210mm;
-    min-height: 297mm;
+    height: 297mm;
+    max-height: 297mm;
     background: white;
     margin: 20px auto;
-    padding: 16mm 16mm 14mm 16mm;
+    padding: 10mm 12mm;
     page-break-after: always;
     position: relative;
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    overflow: hidden;
   }
   .page:last-child { page-break-after: auto; }
 
@@ -62,14 +64,14 @@
 
   /* Cuttable elements - single sky border with gold top accent */
   .cut {
-    border: 2.5px solid var(--sky);
-    border-top: 5px solid var(--gold);
-    padding: 7mm 8mm 7mm;
-    margin: 8mm 0;
+    border: 2px solid var(--sky);
+    border-top: 4px solid var(--gold);
+    padding: 3mm 6mm 4mm;
+    margin: 3mm 0;
     background: white;
-    border-radius: 5mm;
+    border-radius: 4mm;
     position: relative;
-    box-shadow: 0 2px 5px rgba(2,136,209,0.12);
+    box-shadow: 0 1px 3px rgba(2,136,209,0.10);
   }
   /* Subtle cut indicator at bottom */
   .cut::before {
@@ -86,9 +88,10 @@
   /* Title zone - inverted: gold border with sky top accent */
   .title-zone {
     text-align: center;
-    border: 3px solid var(--gold);
-    border-top: 6px solid var(--sky);
+    border: 2.5px solid var(--gold);
+    border-top: 5px solid var(--sky);
     background: linear-gradient(135deg, #fffbe6 0%, #ffffff 50%, #e1f5fe 100%);
+    padding: 3mm 6mm !important;
   }
 
   /* ============= Canva-style decorative tape & stickers ============= */
@@ -186,21 +189,21 @@
   .corner-dot-gold { background: var(--gold); }
   .corner-dot-sky { background: var(--sky); }
   .title-num {
-    font-size: 28pt;
+    font-size: 18pt;
     font-weight: bold;
     color: var(--gold-deep);
     line-height: 1;
   }
   .title-main {
-    font-size: 36pt;
+    font-size: 26pt;
     font-weight: bold;
     color: #000;
-    margin: 4mm 0 2mm 0;
+    margin: 1mm 0;
     line-height: 1.1;
-    text-shadow: 2px 2px 0 var(--gold);
+    text-shadow: 1.5px 1.5px 0 var(--gold);
   }
   .title-en {
-    font-size: 16pt;
+    font-size: 11pt;
     color: var(--sky-deep);
     font-weight: 600;
     letter-spacing: 1px;
@@ -208,7 +211,7 @@
 
   /* Chart zone */
   .chart-zone {
-    min-height: 80mm;
+    min-height: 50mm;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,7 +221,7 @@
   /* Map zone for page 1 */
   .map-zone {
     text-align: center;
-    padding: 4mm 6mm;
+    padding: 3mm 6mm !important;
   }
   .map-zone .map-container {
     position: relative;
@@ -227,14 +230,14 @@
   }
   .map-zone img {
     max-width: 100%;
-    max-height: 115mm;
+    max-height: 78mm;
     border: 2px solid var(--sky-deep);
     border-radius: 3mm;
     display: block;
   }
   .map-zone svg {
     max-width: 100%;
-    max-height: 115mm;
+    max-height: 78mm;
   }
   /* HK marker overlay on map */
   .hk-marker {
@@ -265,32 +268,32 @@
   /* Highlight tagline - short key message per page */
   .highlight-zone {
     text-align: center;
-    padding: 5mm 8mm !important;
+    padding: 3mm 6mm !important;
     background: linear-gradient(135deg, #fffbe6 0%, #ffffff 50%, #e1f5fe 100%);
     border-color: var(--gold) !important;
-    border-top: 5px solid var(--sky) !important;
+    border-top: 4px solid var(--sky) !important;
   }
   .highlight-text {
-    font-size: 17pt;
+    font-size: 13pt;
     font-weight: bold;
     color: #000;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
   .highlight-text .accent { color: var(--sky-deep); }
   .highlight-text .gold { color: var(--gold-deep); }
   .chart-zone canvas {
     max-width: 100% !important;
-    max-height: 85mm !important;
+    max-height: 65mm !important;
   }
   .chart-caption {
-    font-size: 13pt;
+    font-size: 10pt;
     color: var(--sky-deep);
     font-weight: bold;
-    margin-top: 4mm;
+    margin-top: 2mm;
     text-align: center;
-    padding: 4px 12px;
+    padding: 2px 10px;
     background: #fffbe6;
-    border-radius: 6px;
+    border-radius: 5px;
     border: 1.5px solid var(--gold);
     display: inline-block;
   }
@@ -349,25 +352,25 @@
   .icon-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8mm;
+    gap: 4mm;
     width: 100%;
-    margin: 4mm 0;
+    margin: 2mm 0;
   }
   .icon-item {
     text-align: center;
   }
   .icon-item svg {
-    width: 28mm;
-    height: 28mm;
+    width: 18mm;
+    height: 18mm;
   }
   .icon-item .icon-label {
-    font-size: 13pt;
+    font-size: 11pt;
     font-weight: bold;
     color: #000;
-    margin-top: 3mm;
+    margin-top: 1mm;
   }
   .icon-item .icon-en {
-    font-size: 10pt;
+    font-size: 8pt;
     color: var(--sky-deep);
     font-weight: bold;
   }
@@ -403,21 +406,21 @@
   /* Special: Article quote box */
   .quote-box {
     text-align: center;
-    padding: 10mm;
+    padding: 5mm 6mm !important;
     background: linear-gradient(135deg, #fffbe6 0%, #ffffff 100%);
   }
   .quote-text {
-    font-size: 22pt;
+    font-size: 16pt;
     font-weight: bold;
     color: #000;
-    line-height: 1.4;
-    margin-bottom: 4mm;
-    padding: 4mm;
-    border-top: 3px solid var(--gold);
-    border-bottom: 3px solid var(--gold);
+    line-height: 1.3;
+    margin-bottom: 2mm;
+    padding: 3mm;
+    border-top: 2.5px solid var(--gold);
+    border-bottom: 2.5px solid var(--gold);
   }
   .quote-cite {
-    font-size: 14pt;
+    font-size: 11pt;
     color: var(--sky-deep);
     font-weight: bold;
   }
@@ -447,30 +450,30 @@
   .vs-box {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    gap: 6mm;
+    gap: 4mm;
     align-items: center;
     width: 100%;
-    margin: 6mm 0;
+    margin: 2mm 0;
   }
   .vs-side {
     text-align: center;
-    padding: 6mm 4mm;
-    border: 3px solid var(--sky);
-    border-top: 6px solid var(--gold);
-    border-radius: 4mm;
+    padding: 3mm 3mm;
+    border: 2.5px solid var(--sky);
+    border-top: 5px solid var(--gold);
+    border-radius: 3mm;
     background: white;
   }
-  .vs-flag { font-size: 36pt; }
+  .vs-flag { font-size: 22pt; }
   .vs-num {
-    font-size: 48pt;
+    font-size: 32pt;
     font-weight: bold;
     color: var(--sky-deep);
     line-height: 1;
-    margin: 2mm 0;
+    margin: 1mm 0;
   }
-  .vs-name { font-size: 14pt; font-weight: bold; }
+  .vs-name { font-size: 11pt; font-weight: bold; }
   .vs-divider {
-    font-size: 36pt;
+    font-size: 22pt;
     font-weight: bold;
     color: var(--gold-deep);
   }
@@ -481,7 +484,9 @@
     .page {
       margin: 0;
       box-shadow: none;
-      padding: 0;
+      padding: 8mm 10mm;
+      height: 297mm;
+      overflow: hidden;
     }
     .cut::before { display: none; }
     .cut { border-color: #aaa; }
@@ -556,7 +561,7 @@
   </div>
 
   <div class="cut chart-zone">
-    <svg viewBox="0 0 420 300" style="width:100%; max-width:340px;">
+    <svg viewBox="0 0 420 300" style="width:100%; max-width:220px;">
       <!-- Crown on top -->
       <polygon points="210,8 215,22 230,18 224,32 240,38 224,44 230,58 215,54 210,68 205,54 190,58 196,44 180,38 196,32 190,18 205,22"
                fill="#ffc107" stroke="#0288d1" stroke-width="2"/>
